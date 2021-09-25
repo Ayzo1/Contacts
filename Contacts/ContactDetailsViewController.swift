@@ -108,7 +108,7 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource {
         let firstNameText = firstNameCell.textField.text!
         let lastNameCell = table.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldTableViewCell
         let lastNameText = lastNameCell.textField.text!
-        let emailCell = table.cellForRow(at: IndexPath(row: 4, section: 0)) as! TextFieldTableViewCell
+        let emailCell = table.cellForRow(at: IndexPath(row: 3, section: 0)) as! TextFieldTableViewCell
         let emailText = emailCell.textField.text!
         let emailReg = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let nameReg = "^[a-zA-Zа-яА-Я]+$"
