@@ -69,8 +69,8 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
         contacts.append(contact)
         do {
             try context?.save()
-        } catch {
-            print("aaaaaa")
+        } catch let error as NSError{
+            print(error.localizedDescription)
         }
     }
     
@@ -81,7 +81,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
         do {
             contacts = try context?.fetch(fetchRequest) as! [Contact]
         } catch let error as NSError{
-            print("ddddddd")
+            print(error.localizedDescription)
         }
         
         
