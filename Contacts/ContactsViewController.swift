@@ -3,14 +3,6 @@ import CoreData
 
 class ContactsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
     
-    /*
-    public var contacts: [Contact] = [
-        Contact(firstName: "Ivan", lastName: "Ivanov", number: "89121112233"),
-        Contact(firstName: "Petr", lastName: "Petrov", number: "89125556677"),
-        Contact(firstName: "Pavel", lastName: "Pavlov", number: "89129997788"),
-    ]
-    */
-    
     public var contacts: [Contact] = []
     private var appDelegate: AppDelegate?
     private var context: NSManagedObjectContext?
@@ -80,10 +72,9 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
         let fetchRequest: NSFetchRequest<Contact> = Contact.fetchRequest()
         do {
             contacts = try context?.fetch(fetchRequest) as! [Contact]
-        } catch let error as NSError{
+        } catch let error as NSError {
             print(error.localizedDescription)
         }
-        
         
         contactsTableView.reloadData()
     }
@@ -96,14 +87,17 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     private func filterContent(searchText: String) {
-        searchResult = contacts.filter({ (contact: Contact) -> Bool in
-            let nameMatch = contact.fullName.range(of: searchText)
-            return nameMatch != nil
-        })
+        searchResult = contacts.filter(
+            {
+                (contact: Contact) -> Bool in
+                let nameMatch = contact.fullName.range(of: searchText)
+                return nameMatch != nil
+            }
+        )
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if(!searchController.isActive){
+        if(!searchController.isActive) {
             contacts.remove(at: indexPath.row)
             contactsTableView.reloadData()
         }
@@ -113,5 +107,4 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
         if(searchController.isActive) { return false }
         return true
     }
-    
 }

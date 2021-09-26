@@ -31,7 +31,6 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
-
     @IBOutlet weak var table: UITableView!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,7 +43,7 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource {
     @IBAction func saveButtonAction(_ sender: Any) {
         if(checkContact()) {
             changeContact(newContact: contact)
-            if(isNewContact){
+            if(isNewContact) {
                 mainVC?.appendContact(contact: contact)
             }
         }
@@ -56,18 +55,18 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         table.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "TextFieldCell")
-        if (contact.fullName.count < 2){
+        if (contact.fullName.count < 2) {
             navigationItem.title = "New contact"
         }
         else {
             navigationItem.title = contact.fullName
-                    
         }
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         numberTextField.placeholder = "Phone number"
         if(contact.number?.count == 11) {
-            let s = formatNumber(number: contact.number ?? "", shoulRemoveLastDigit: false)
-        numberTextField.text = s
+            let formatedNumber = formatNumber(number: contact.number ?? "", shoulRemoveLastDigit: false)
+            numberTextField.text = formatedNumber
         }
         else { numberTextField.text = contact.number }
         numberTextField.keyboardType = .numberPad
@@ -113,7 +112,7 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource {
         let emailReg = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let nameReg = "^[a-zA-Zа-яА-Я]+$"
         let nameAlert = UIAlertController(title: "Error", message: "Please, type correct name", preferredStyle: .alert)
-        let emailAlert = UIAlertController(title: "Error", message: "Please, typecorrect email", preferredStyle: .alert)
+        let emailAlert = UIAlertController(title: "Error", message: "Please, type correct email", preferredStyle: .alert)
         
         return check(text: firstNameText, reg: nameReg, alert: nameAlert) &&
         check(text: lastNameText, reg: nameReg, alert: nameAlert) &&
