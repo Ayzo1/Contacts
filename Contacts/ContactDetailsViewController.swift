@@ -43,6 +43,11 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource {
     @IBAction func saveButtonAction(_ sender: Any) {
         if(checkContact()) {
             changeContact(newContact: contact)
+            do {
+                try mainVC?.context?.save()
+            } catch let error as NSError{
+                print(error.localizedDescription)
+            }
             if(isNewContact) {
                 mainVC?.appendContact(contact: contact)
             }

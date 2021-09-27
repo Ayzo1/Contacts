@@ -5,7 +5,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     public var contacts: [Contact] = []
     private var appDelegate: AppDelegate?
-    private var context: NSManagedObjectContext?
+    public var context: NSManagedObjectContext?
     private var searchResult: [Contact] = []
     var searchController: UISearchController = UISearchController(searchResultsController: nil)
     @IBOutlet weak var contactsTableView: UITableView!
@@ -98,6 +98,13 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if(!searchController.isActive) {
+            let contact = contacts[indexPath.row]
+            context?.delete(contact as NSManagedObject)
+            do {
+                try context?.save()
+            } catch let error as NSError{
+                print(error.localizedDescription)
+            }
             contacts.remove(at: indexPath.row)
             contactsTableView.reloadData()
         }

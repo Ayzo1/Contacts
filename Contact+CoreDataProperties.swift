@@ -1,11 +1,3 @@
-//
-//  Contact+CoreDataProperties.swift
-//  Contacts
-//
-//  Created by ayaz on 26.09.2021.
-//
-//
-
 import Foundation
 import CoreData
 
